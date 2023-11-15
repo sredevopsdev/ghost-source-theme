@@ -2,7 +2,7 @@
     "name": "source-sredevops",
     "description": "A default theme for the Ghost publishing platform",
     "demo": "https://source.ghost.io",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "engines": {
         "ghost": ">=5.0.0"
     },
@@ -51,7 +51,7 @@
         "gulp-postcss": "9.0.1",
         "gulp-uglify": "3.0.2",
         "gulp-zip": "5.1.0",
-        "inquirer": "8.2.4",
+        "inquirer": "9.2.11",
         "postcss": "^8.2.13",
         "postcss-easy-import": "4.0.0",
         "pump": "3.0.0"
