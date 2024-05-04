@@ -48,6 +48,7 @@
         </header>
 
         <section class="gh-content gh-canvas is-body{{#if @custom.enable_drop_caps_on_posts}} drop-cap{{/if}}">
+            <aside class="gh-sidebar"><div class="gh-toc"></div></aside> {{! The TOC will be inserted here }}
             {{content}}
         </section>
 
@@ -68,7 +69,7 @@
         {{#if next}}
             <section class="gh-container is-grid gh-outer">
                 <div class="gh-container-inner gh-inner">
-                    <h2 class="gh-container-title">{{t "Read more"}}</h2>
+                    <h2 class="gh-container-title">Keep reading on SREDevOps.org: </h2>
                     <div class="gh-feed">
                         {{#foreach next}}
                             {{> "post-card" lazyLoad=true}}

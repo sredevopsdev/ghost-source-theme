@@ -31,9 +31,9 @@
 
             // Map subpaths to locales
             var localeMap = {
-                'es': 'es-ES',
-                'br': 'pt-BR',
-                'en': 'en-US',
+                'es': 'es',
+                'br': 'pt',
+                'en': 'en',
                 // Add more mappings as needed
             };
 
@@ -67,44 +67,6 @@
     {{!-- The following CSS is used tofor TOC Bot --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.27.16/tocbot.min.css" integrity="sha512-4q0OX9NAYcRTFEfy9nTK0AV9N7MxM665neDXEW3CjAj1pXc6+8Bcd6ryXl6cY8mTBBXt0aXepnSDLLQZSuJRww==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    {{!-- The following CSS is an addon for tocbot --}}
-    <style>
-        .gh-content {
-            position: relative;
-        }
-    
-        .gh-toc>.toc-list {
-            position: relative;
-        }
-    
-        .toc-list {
-            overflow: hidden;
-            list-style: none;
-        }
-    
-        @media (min-width: 1300px) {
-            .gh-sidebar {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                margin-top: 4vmin;
-                grid-column: wide-start / main-start;
-                /* Place the TOC to the left of the content */
-            }
-    
-            .gh-toc {
-                position: sticky;
-                /* On larger screens, TOC will stay in the same spot on the page */
-                top: 4vmin;
-            }
-        }
-    
-        .gh-toc .is-active-link::before {
-            background-color: var(--ghost-accent-color);
-            /* Defines TOC   accent color based on Accent color set in Ghost Admin */
-        }
-    </style>
-
 </head>
 
 <body class="{{body_class}} has-{{#match @custom.title_font "Elegant serif"}}serif{{else match @custom.title_font "Consistent mono"}}mono{{else}}sans{{/match}}-title has-{{#match @custom.body_font "Elegant serif"}}serif{{else}}sans{{/match}}-body">
@@ -121,12 +83,60 @@
 
 {{#is "post, page"}}
     {{> "lightbox"}}
+    <style>
+        .gh-content {
+            position: relative;
+        }
+
+        .gh-toc > .toc-list {
+            position: relative;
+            padding-right: 20px;
+        }
+
+        .toc-list {
+            overflow: hidden;
+            list-style: none;
+        }
+
+        @media (min-width: 1300px) {
+            .gh-sidebar {
+                position: absolute; 
+                top: 0;
+                bottom: 0;
+                margin-top: 4vmin;
+                grid-column: wide-start / main-start; /* Place the TOC to the left of the content */
+            }
+
+            .gh-toc {
+                position: sticky; /* On larger screens, TOC will stay in the same spot on the page */
+                top: 4vmin;
+            }
+        }
+
+        .gh-toc .is-active-link::before {
+            background-color: var(--ghost-accent-color); /* Defines TOC   accent color based on Accent color set in Ghost Admin */
+        } 
+        </style>
+    {{! Initialize Tocbot after you load the script }}
+
+    {{!-- The following script is for TOC Bot --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.27.16/tocbot.min.js" integrity="sha512-aSXZBmth3MYo5SG4wZKYhWPTgS25htvpjpOnt+dbvLSXmFk9lMb7WUFPWIzxl6+HKOkJW8oCQmSwy3vHVSLzKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        tocbot.init({
+            // Where to render the table of contents.
+            tocSelector: '.gh-toc',
+            // Where to grab the headings to build the table of contents.
+            contentSelector: '.gh-content',
+            // Which headings to grab inside of the contentSelector element.
+            headingSelector: 'h1, h2, h3, h4, h5, h6',
+            // Ensure correct positioning
+            hasInnerContainers: true,
+        });
+    </script>
 {{/is}}
 
 {{!-- Scripts - handle responsive videos, infinite scroll, and navigation dropdowns --}}
-
-{{!-- The following script is for TOC Bot --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.27.16/tocbot.min.js" integrity="sha512-aSXZBmth3MYo5SG4wZKYhWPTgS25htvpjpOnt+dbvLSXmFk9lMb7WUFPWIzxl6+HKOkJW8oCQmSwy3vHVSLzKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{asset "built/source.js"}}"></script>
 
 {{!-- Ghost outputs required functional scripts with this tag, it should always be the last thing before the closing body tag --}}
